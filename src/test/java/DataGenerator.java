@@ -3,18 +3,18 @@ import com.github.javafaker.Faker;
 import java.util.Locale;
 
 public class DataGenerator {
-    private Faker faker;
+    private static Faker faker;
 
+    private DataGenerator() {
+    }
 
-
-    public RegistrationByPersonalData generateByPersonalInfo() {
+    public static RegistrationByPersonalData generateByPersonalInfo() {
         faker = new Faker(new Locale("ru"));
         return new RegistrationByPersonalData(
-        faker.address().city(),
-        faker.name().fullName(),
-        faker.phoneNumber().phoneNumber()
+                faker.address().city(),
+                faker.name().fullName(),
+                faker.phoneNumber().phoneNumber()
         );
-
 
 
     }

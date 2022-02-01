@@ -25,6 +25,7 @@ public class CardDeliveryTest {
 
     @Test
     public void shouldRescheduleMeeting() {
+        var validUser = DataGenerator.generateByPersonalInfo();
 
         String planningDate = generateDate(4);
         String newDate = generateDate(5);
@@ -32,11 +33,11 @@ public class CardDeliveryTest {
 
 
         open("http://localhost:9999/");
-        $("[placeholder=\"Город\"]").val();
+        $("[data-test-id='city'] input").setValue(validUser.getCity());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[data-test-id='date'] input").setValue(planningDate);
-        $(byName("name")).val();
-        $(byName("phone")).val();
+        $(byName("name")).val(validUser.getName());
+        $(byName("phone")).val(validUser.getPhone());
         $("[class=\"checkbox__box\"]").click();
         $(byText("Запланировать")).click();
 
@@ -47,9 +48,6 @@ public class CardDeliveryTest {
         $("[data-test-id=\"success-notification\"]").shouldHave(Condition.text("Успешно!"));
         $(".notification__content").shouldBe(visible)
                 .shouldHave(exactText("Встреча успешно запланирована на " + newDate));
-
-
-
 
     }
 
